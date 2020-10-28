@@ -438,3 +438,160 @@ add_less = add_suffix("less")
 
 add_less("fear") ➞ "fearless"
 add_less("ruth") ➞ "ruthless" */
+
+const add_suffix = (suffix,...args) => {
+    const str = args 
+    return function (str) {
+        return str.concat(suffix)
+    }
+}
+
+add_ly = add_suffix("ly")
+console.log(add_ly("total"))
+
+
+add_less = add_suffix("less")
+console.log(add_less("fear"))
+console.log(add_less("ruth"))
+
+/* Your task is to create a Circle constructor that creates a circle with a radius provided by an argument. The circles constructed must have two getters getArea() (PIr^2) and getPerimeter() (2PI*r) which give both respective areas and perimeter (circumference).
+
+For help with this class, I have provided you with a Rectangle constructor which you can use as a base example.
+
+Examples
+let circy = new Circle(11);
+circy.getArea();
+
+// Should return 380.132711084365
+
+let circy1 = new Circle(4.44);
+circy.getPerimeter();
+
+// Should return 27.897342763877365 */
+
+function Circle(radius) {
+    this.radius = radius;
+    this.getArea = () => (Math.PI*(Math.pow(radius,2)))
+    this.getPerimeter = () => (Math.PI*2*radius)
+}
+
+let circy = new Circle(11);
+console.log(circy.getArea())
+let circy1 = new Circle(4.44);
+console.log(circy1.getPerimeter())
+
+/* You're given a string of words. You need to find the word "Nemo", and return a string like this: "I found Nemo at [the order of the word you find nemo]!".
+
+If you can't find Nemo, return "I can't find Nemo :(".
+
+Examples
+findNemo("I am finding Nemo !") ➞ "I found Nemo at 4!"
+
+findNemo("Nemo is me") ➞ "I found Nemo at 1!"
+
+findNemo("I Nemo am") ➞ "I found Nemo at 2!" */
+
+const findNemo = (str) => {
+    const strToArr = str.split(' ')
+    const arrOfNemoAndIndex = []
+    for(let i=0;i<strToArr.length;i++) {
+        (strToArr[i] === "Nemo") ? arrOfNemoAndIndex.push(strToArr[i],i + 1) : null
+    }
+    return `I found Nemo at ${arrOfNemoAndIndex[1]}!`
+}
+
+console.log(findNemo("I am finding Nemo !"))
+console.log(findNemo("Nemo is me"))
+console.log(findNemo("I Nemo am"))
+
+/* Create a function that takes two numbers and a mathematical operator + - / * and will perform a calculation with the given numbers.
+
+Examples
+calculator(2, "+", 2) ➞ 4
+
+calculator(2, "*", 2) ➞ 4
+
+calculator(4, "/", 2) ➞ 2
+Notes
+If the input tries to divide by 0, return: "Can't divide by 0!" */
+
+const calculator = (num1,mathOperator,num2) => {
+    if(num2 == 0) {return "Can`t divide by 0!"}
+    return eval(num1 + mathOperator + num2)
+}
+
+console.log(calculator(4,"*",0))
+console.log(calculator(2, "+", 2))
+console.log(calculator(2, "*", 2))
+console.log(calculator(4, "/", 2))
+
+/* You just returned home to find your mansion has been robbed! Given an object of the stolen items, return the total amount of the burglary (number). If nothing was robbed, return the string "Lucky you!".
+
+Examples
+const stolenItems = {
+  tv: 30,
+  skate: 20,
+  stereo: 50,
+} ➞ 100
+
+const stolenItems = {
+  painting: 20000,
+} ➞ 20000
+
+const stolenItems = {} ➞ "Lucky you!"
+Notes
+The item value is always positive. */
+
+const stolenItems = {
+    tv: 30,
+    skate: 20,
+    stereo: 50,
+  }
+  
+const stolenItems1 = {}
+
+const calcStolenItems = (stolenItems) => {
+    const objValues = Object.values(stolenItems)
+    if(objValues.length === 0) {return "Lucky you!"}
+    const reducer = (acc,currVal) => acc + currVal
+    return objValues.reduce(reducer)
+}
+
+console.log(calcStolenItems(stolenItems))
+console.log(calcStolenItems(stolenItems1))
+
+/* Create a function that moves all capital letters to the front of a word.
+
+Examples
+capToFront("hApPy") ➞ "APhpy"
+
+capToFront("moveMENT") ➞ "MENTmove"
+
+capToFront("shOrtCAKE") ➞ "OCAKEshrt" */
+
+const capToFront = (str) => {
+    const arrOfLetters = str.split('')
+    const arrOfCapitals = [];
+    const arrOfLowers = [];
+    arrOfLetters.map(l => (l == l.toUpperCase()) ? arrOfCapitals.push(l) : arrOfLowers.push(l) )
+    const finalArr = arrOfCapitals.concat(arrOfLowers)
+    return finalArr.join('')
+}
+
+console.log(capToFront("olleH"))
+console.log(capToFront("hApPy"))
+console.log(capToFront("moveMENT"))
+console.log(capToFront("shOrtCAKE"))
+
+/* Create a function that takes in an array (slot machine outcome) and returns true if all elements in the array are identical, and false otherwise. The array will contain 4 elements.
+
+Examples
+testJackpot(["@", "@", "@", "@"]) ➞ true
+
+testJackpot(["abc", "abc", "abc", "abc"]) ➞ true
+
+testJackpot(["SS", "SS", "SS", "SS"]) ➞ true
+
+testJackpot(["&&", "&", "&&&", "&&&&"]) ➞ false
+
+testJackpot(["SS", "SS", "SS", "Ss"]) ➞ false */
