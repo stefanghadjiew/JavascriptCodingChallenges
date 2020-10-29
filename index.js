@@ -595,3 +595,260 @@ testJackpot(["SS", "SS", "SS", "SS"]) ➞ true
 testJackpot(["&&", "&", "&&&", "&&&&"]) ➞ false
 
 testJackpot(["SS", "SS", "SS", "Ss"]) ➞ false */
+
+const testJackpot = (arr) => {
+   return arr.every( val => val === arr[0])
+}
+
+console.log(testJackpot(["@", "@", "@", "@"]))
+console.log(testJackpot(["abc", "abc", "abc", "abc"]))
+console.log(testJackpot(["SS", "SS", "SS", "SS"]))
+console.log(testJackpot(["&&", "&", "&&&", "&&&&"]))
+console.log(testJackpot(["SS", "SS", "SS", "Ss"]))
+
+/* Write a program that takes a temperature input in celsius and converts it to Fahrenheit and Kelvin. Return the converted temperature values in an array.
+
+The formula to calculate the temperature in Fahrenheit from Celsius is:
+
+F = C*9/5 +32
+The formula to calculate the temperature in Kelvin from Celsius is:
+
+K = C + 273.15
+Examples
+tempConversion(0) ➞ [32, 273.15]
+// 0°C is equal to 32°F and 273.15 K.
+
+tempConversion(100) ➞ [212, 373.15]
+
+tempConversion(-10) ➞ [14, 263.15]
+
+tempConversion(300.4) ➞ [572.72, 573.55] */
+
+const tempConversion = (tempInCelsius) => {
+    const tempArr = []
+    const tempToFahrenheit = tempInCelsius*9/5 + 32
+    const tempToKelvin = tempInCelsius + 273.15
+    tempArr.push(tempToFahrenheit,tempToKelvin)
+    return tempArr
+}
+
+console.log(tempConversion(0))
+console.log(tempConversion(100))
+console.log(tempConversion(-10))
+console.log(tempConversion(300.4))
+
+/* An array is special if every even index contains an even number and every odd index contains an odd number. Create a function that returns true if an array is special, and false otherwise.
+
+Examples
+isSpecialArray([2, 7, 4, 9, 6, 1, 6, 3]) ➞ true
+// Even indices: [2, 4, 6, 6]; Odd indices: [7, 9, 1, 3]
+
+isSpecialArray([2, 7, 9, 1, 6, 1, 6, 3]) ➞ false
+// Index 2 has an odd number 9.
+
+isSpecialArray([2, 7, 8, 8, 6, 1, 6, 3]) ➞ false
+// Index 3 has an even number 8. */
+
+const isSpecialArray = (arr) => {
+   const final = arr.filter((num,i) => (num%2===0 && i%2===0) || (num%2!==0 && i%2!==0))
+   if (final.length === arr.length) {return true}
+   if(final.length !== arr.length) {return false}
+}
+
+console.log(isSpecialArray([2, 7, 4, 9, 6, 1, 6, 3]))
+console.log(isSpecialArray([2, 7, 9, 1, 6, 1, 6, 3]))
+console.log(isSpecialArray([2, 7, 8, 8, 6, 1, 6, 3]))
+
+/* Create a function that takes in a number as a string n and returns the number without trailing and leading zeros.
+
+Trailing Zeros are the zeros after a decimal point which don't affect the value (e.g. the last three zeros in 3.4000 and 3.04000).
+Leading Zeros are the zeros before a whole number which don't affect the value (e.g. the first three zeros in 000234 and 000230).
+Examples
+removeLeadingTrailing("230.000") ➞ "230" ---> FIX FOR THIS !!!
+ 
+removeLeadingTrailing("00402") ➞ "402"
+
+removeLeadingTrailing("03.1400") ➞ "3.14"
+
+removeLeadingTrailing("30") ➞ "30"
+Notes
+Return a string.
+If you get a number with .0 on the end, return the integer value (e.g. return "4" rather than "4.0").
+If the number is 0, 0.0, 000, 00.00, etc... return "0". */
+
+const removeLeadingTrailing = (str) => {
+    const splitAtDecimalPoint =  str.split('.')
+    const numBiggerTHanZero = num => num>0
+    if(splitAtDecimalPoint.length === 1) {
+        const firstNumIndex = splitAtDecimalPoint[0].split('').findIndex(numBiggerTHanZero)
+        return splitAtDecimalPoint[0].slice(firstNumIndex)
+    }
+    if(splitAtDecimalPoint.length === 2) {
+        const firstNumIndex = splitAtDecimalPoint[0].split('').findIndex(numBiggerTHanZero)
+        const firstPart = splitAtDecimalPoint[0].slice(firstNumIndex).concat('.')
+        const secondPart = splitAtDecimalPoint[1].split('').reverse()
+        const secondNumIndex = secondPart.findIndex(numBiggerTHanZero)
+        const secondPartFinal = secondPart.slice(secondNumIndex).reverse().join('')
+        return firstPart.concat(secondPartFinal)
+    }
+}
+
+console.log(removeLeadingTrailing("00000235.340100"))
+console.log(removeLeadingTrailing("230.000")) /* FIX FOR THIS !!!*/
+console.log(removeLeadingTrailing("00402"))
+console.log(removeLeadingTrailing("03.1400"))
+console.log(removeLeadingTrailing("30"))
+
+
+/* Given an array of boxes, create a function that returns the total volume of all those boxes combined together. A box is represented by an array with three elements: length, width and height.
+
+For instance, totalVolume([2, 3, 2], [6, 6, 7], [1, 2, 1]) should return 266 since (2 x 3 x 2) + (6 x 6 x 7) + (1 x 2 x 1) = 12 + 252 + 2 = 266.
+
+Examples
+totalVolume([4, 2, 4], [3, 3, 3], [1, 1, 2], [2, 1, 1]) ➞ 63
+
+totalVolume([2, 2, 2], [2, 1, 1]) ➞ 10
+
+totalVolume([1, 1, 1]) ➞ 1
+Notes
+You will be given at least one box.
+Each box will always have three dimensions included. */
+
+const totalVolume = (arrayOfBoxes) => {
+    if(arrayOfBoxes.length===1) {
+        const innerArr = arrayOfBoxes[0]
+        let result = 1
+        for(let i=0;i<innerArr.length;i++) {
+            result*=innerArr[i]
+        }
+        return result
+    }
+    else {
+        let finalResult = 0;
+        for(let i=0;i<arrayOfBoxes.length;i++) {
+            let inner = arrayOfBoxes[i]
+            let result = 1
+            for(let j=0;j<inner.length;j++) {
+                result*=inner[j]
+            }
+            
+            finalResult+=result
+        }
+        return finalResult
+    }
+}
+
+console.log(totalVolume([[1,3,9,12]]))
+console.log(totalVolume([[1,1,1]]))
+console.log(totalVolume([[2, 2, 2], [5, 5, 5]]))
+console.log(totalVolume([[4, 2, 4], [3, 3, 3], [1, 1, 2], [2, 1, 1]]))
+console.log(totalVolume([[2, 2, 2], [2, 1, 1]]))
+
+/* A salesman has a number of cities to visit. They want to calculate the total number of possible paths they could take, visiting each city once before returning home. Return the total number of possible paths a salesman can travel, given n cities.
+
+If we have cities A, B and C, possible paths would be:
+
+A -> B -> C
+A -> C -> B
+B -> A -> C
+B -> C -> A
+C -> B -> A
+C -> A -> B
+... which gives us 6 as the possible number of paths.
+
+Examples
+paths(4) ➞ 24
+
+paths(1) ➞ 1
+
+paths(9) ➞ 362880 */
+
+const paths = (num) => {
+    let result = 1
+    for(let i=1;i<=num;i++) {
+        result *= i
+    }
+    return result
+}
+
+console.log(paths(1))
+console.log(paths(4))
+console.log(paths(9))
+/* 
+Create a function that squares every digit of a number.
+
+Examples
+squareDigits(9119) ➞ 811181
+
+squareDigits(2483) ➞ 416649
+
+squareDigits(3212) ➞ 9414 */
+
+const squareDigits = (num) => {
+    return num.toString().split('').map(str => parseInt(str*str)).join('')
+}
+
+console.log(squareDigits(9119))
+console.log(squareDigits(2483))
+console.log(squareDigits(3212))
+
+/* Return the sum of all items in an array, where each item is multiplied by its index (zero-based). For empty arrays, return 0.
+
+Examples
+indexMultiplier([1, 2, 3, 4, 5]) ➞ 40
+// (1*0 + 2*1 + 3*2 + 4*3 + 5*4)
+
+indexMultiplier([-3, 0, 8, -6]) ➞ -2
+// (-3*0 + 0*1 + 8*2 + -6*3) */
+
+const indexMultiplier = (arr) => {
+    let result = 0
+    arr.map((num,i) => result+= num*i)
+    return result
+}
+
+console.log(indexMultiplier([1, 2, 3, 4, 5]))
+console.log(indexMultiplier([-3, 0, 8, -6]))
+
+/* Create a function that validates whether three given integers form a Pythagorean triplet. The sum of the squares of the two smallest integers must equal the square of the largest number to be validated.
+
+Examples
+isTriplet(3, 4, 5) ➞ true
+// 3² + 4² = 25
+// 5² = 25
+
+isTriplet(13, 5, 12) ➞ true
+// 5² + 12² = 169
+// 13² = 169
+
+isTriplet(1, 2, 3) ➞ false
+// 1² + 2² = 5
+// 3² = 9 */
+
+const isTriplet = (num1,num2,num3) => {
+    let arr = []
+    arr.push(num1,num2,num3)
+    const sortedAscending = arr.sort((a,b)=>a-b)
+    console.log(sortedAscending)
+    const isNum3 = Math.sqrt(Math.pow(sortedAscending[0],2) + Math.pow(sortedAscending[1],2))
+    if(isNum3 === sortedAscending[2]) {return true} else {return false}
+}
+
+console.log(isTriplet(3, 4, 5))
+console.log(isTriplet(13, 5, 12))
+console.log(isTriplet(1, 2, 3))
+
+/* Create a function that takes the height and radius of a cone as arguments and returns the volume of the cone rounded to the nearest hundredth.
+coneVolume(3, 2) ➞ 12.57
+
+coneVolume(15, 6) ➞ 565.49
+
+coneVolume(18, 0) ➞ 0 */
+
+const coneVolume = (h,r) => {
+    return (Math.PI*h*Math.pow(r,2))/3
+}
+
+console.log(coneVolume(3, 2))
+console.log(coneVolume(15, 6))
+console.log(coneVolume(18, 0))
