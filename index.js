@@ -5,6 +5,7 @@ countTrue([false, false, false, false]) ➞ 0
 
 countTrue([]) ➞ 0 */
 
+
 const countTrue = (arr) => {
     if(arr.length === 0) {return 0}
     return (
@@ -852,3 +853,159 @@ const coneVolume = (h,r) => {
 console.log(coneVolume(3, 2))
 console.log(coneVolume(15, 6))
 console.log(coneVolume(18, 0))
+
+/* Write a function called linearSearch which accepts an array and a value,and returns the index at which the value exists.If the value does not exist in the array,return -1.
+
+Dont use indexOf to implement this function! */
+
+const linearSearch = (arr,val) => {
+    for(let i=0;i<arr.length;i++) {
+        if(arr[i] === val) {return i}
+    }
+    return -1
+}
+
+console.log(linearSearch([1,2,3,4,5],9))
+/* 
+Binary Search */
+
+const binarySearch = (sortedArr,val) => {
+    let i =0
+    let k = sortedArr.length-1
+    let j=Math.floor((i+k)/2)
+    while(sortedArr[j]!== val && i<=k) {
+        
+        if(val < sortedArr[j]) {
+            k = j-1
+        } else {
+            i = j+1
+        }
+        j=Math.floor((i+k)/2)
+    }
+    return sortedArr[j] === val ? j : -1
+    
+}
+
+binarySearch([1,2,3,4,5],3) 
+
+/* 
+const button = document.getElementById("button")
+button.addEventListener("click", () => {
+    debugger
+    binarySearch([1,2,3,4,5],3)
+    
+}) */
+
+/* Given a square matrix (i.e. same number of rows as columns), its trace is the sum of the entries in the main diagonal (i.e. the diagonal line from the top left to the bottom right). */
+
+
+const traceMatrix = (arr) => {
+    let result = 0 
+    let initialIndex = 0
+    for (let i=0;i<arr.length;i++) {
+        result += (arr[i])[initialIndex]
+        initialIndex+=1
+    }
+    return result
+}
+
+console.log(traceMatrix([[1,2,3],[4,5,6],[7,8,9]]))
+console.log(traceMatrix([[1,4],[1,4]]))
+
+/* Create a function that returns "even" if a number has an even number of factors and "odd" if a number has an odd number of factors. */
+
+/* factorGroup(33) ➞ "even"
+
+factorGroup(36) ➞ "odd"
+
+factorGroup(7) ➞ "even" */
+
+const factorGroup = (num) => {
+    let numOfFactors = []
+    for(let i=1;i<=num;i++) {
+        if(num%i===0) {numOfFactors.push(i)}
+    }
+    if(numOfFactors.length % 2 === 0) {return "even"}
+    else {return "odd"}
+}
+
+console.log(factorGroup(36))
+console.log(factorGroup(33))
+console.log(factorGroup(7))
+
+/* Create the function that takes an array with objects and returns the sum of people's budgets.
+getBudgets([
+    { name: "John", age: 21, budget: 23000 },
+    { name: "Steve",  age: 32, budget: 40000 },
+    { name: "Martin",  age: 16, budget: 2700 }
+  ]) ➞ 65700
+  
+  getBudgets([
+    { name: "John",  age: 21, budget: 29000 },
+    { name: "Steve",  age: 32, budget: 32000 },
+    { name: "Martin",  age: 16, budget: 1600 }
+  ]) ➞ 62600 */
+
+  const getBudgets = (arr) => {
+    const arrOfBudgets = arr.map(item => item.budget)
+    let totalBudget = 0
+    for(let i=0;i<arrOfBudgets.length;i++) {
+        totalBudget +=arrOfBudgets[i]
+    }
+    return totalBudget
+  }
+
+  console.log(getBudgets([
+    { name: "John", age: 21, budget: 23000 },
+    { name: "Steve",  age: 32, budget: 40000 },
+    { name: "Martin",  age: 16, budget: 2700 }
+  ]))
+
+  console.log(getBudgets([
+    { name: "John",  age: 21, budget: 29000 },
+    { name: "Steve",  age: 32, budget: 32000 },
+    { name: "Martin",  age: 16, budget: 1600 }
+  ]))
+
+/*   Arrays can be mixed with various types. Your task for this challenge is to sum all the number elements in the given array. Create a function that takes an array and returns the sum of all numbers in the array.
+
+Examples
+numbersSum([1, 2, "13", "4", "645"]) ➞ 3
+
+numbersSum([true, false, "123", "75"]) ➞ 0
+
+numbersSum([1, 2, 3, 4, 5, true]) ➞ 15 */
+
+const numbersSum = (arr) => {
+    let sumOfNumbers = 0
+    for(let i=0;i<arr.length;i++) {
+       if(typeof(arr[i]) == "number") {
+            sumOfNumbers += arr[i]
+       }
+    }
+    return sumOfNumbers;
+}
+
+console.log(numbersSum([1, 2, "13", "4", "645"]))
+console.log(numbersSum([true, false, "123", "75"]))
+console.log(numbersSum([1, 2, 3, 4, 5, true]))
+
+/* Given a list of directions to spin, "left" or "right", return an integer of how many full 360° rotations were made. Note that each word in the array counts as a 90° rotation in that direction. */
+/* spinAround(["left", "right", "left", "right"]) ➞ 0
+
+spinAround(["right", "right", "right", "right", "right", "right", "right", "right"]) ➞ 2
+
+spinAround(["left", "left", "left", "left"]) ➞ 1 */
+
+const spinAround = (arr) => {
+    let result = 0
+    for(let i=0;i<arr.length;i++) {
+        if(arr[i] === "left") {result +=-1}
+        else {result += 1}
+    }
+    return Math.abs(result/4)
+}
+
+console.log(spinAround(["left", "right", "left", "right"]))
+console.log(spinAround(["right", "right", "right", "right", "right", "right", "right", "right"]))
+console.log(spinAround(["left", "left", "left", "left"]))
