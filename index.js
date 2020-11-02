@@ -1009,3 +1009,500 @@ const spinAround = (arr) => {
 console.log(spinAround(["left", "right", "left", "right"]))
 console.log(spinAround(["right", "right", "right", "right", "right", "right", "right", "right"]))
 console.log(spinAround(["left", "left", "left", "left"]))
+
+
+/* Create a function that takes an integer n and reverses it.
+
+Examples
+rev(5121) ➞ "1215"
+
+rev(69) ➞ "96"
+
+rev(-122157) ➞ "751221" */
+
+const rev = (num) => {
+    return num.toString().split('').reverse().join('')
+}
+
+console.log(rev(5121))
+console.log(rev(69))
+console.log(rev(-122157))
+
+/* Create a sorting function which sorts numbers not by numerical order, but by number length! This means sorting numbers with the least amount of digits first, up to the numbers with the most digits.
+
+Examples
+numberLenSort([1, 54, 1, 2, 463, 2]) ➞ [1, 1, 2, 2, 54, 463]
+
+numberLenSort([999, 421, 22, 990, 32]) ➞ [22, 32, 999, 421, 990]
+
+numberLenSort([9, 8, 7, 6, 5, 4, 31, 2, 1, 3]) ➞ [9, 8, 7, 6, 5, 4, 2, 1, 3, 31] */
+
+const numberLenSort = (arr) => {
+    let singleDigit = []
+    let doubleDigit = []
+    let tripleDigit = []
+    for(let i=0;i<arr.length;i++) {
+        if (arr[i].toString().length === 1) { singleDigit.push(arr[i])}
+        if(arr[i].toString().length === 2) {doubleDigit.push(arr[i])}
+        if(arr[i].toString().length > 2) {tripleDigit.push(arr[i])}
+        
+    }
+    return singleDigit.concat(doubleDigit,tripleDigit)
+    
+}
+
+console.log(numberLenSort([1, 54, 1, 2, 463, 2]))
+console.log(numberLenSort([999, 421, 22, 990, 32]))
+console.log(numberLenSort([9, 8, 7, 6, 5, 4, 31, 2, 1, 3]))
+
+
+
+
+/* Create a function which concantenates the number 7 to the end of every chord in an array. Ignore all chords which already end with 7.
+
+Examples
+jazzify(["G", "F", "C"]) ➞ ["G7", "F7", "C7"]
+
+jazzify(["Dm", "G", "E", "A"]) ➞ ["Dm7", "G7", "E7", "A7"]
+
+jazzify(["F7", "E7", "A7", "Ab7", "Gm7", "C7"]) ➞ ["F7", "E7", "A7", "Ab7", "Gm7", "C7"]
+
+jazzify([]) ➞ [] */
+
+
+const jazzify = (arr) => {
+    if(arr === []) return arr
+    let finalArr = []
+    for(let i=0;i<arr.length;i++) {
+        if(arr[i].slice(-1) !== "7") {
+            finalArr.push(arr[i].concat("7"))
+        } else {
+            finalArr.push(arr[i])
+        } 
+    }
+    return finalArr
+}
+
+
+console.log(jazzify(["G", "F", "C"]))
+console.log(jazzify(["Dm", "G", "E", "A"]))
+console.log(jazzify(["F7", "E7", "A7", "Ab7", "Gm7", "C7"]))
+console.log([])
+
+/* A factor chain is an array where each previous element is a factor of the next consecutive element. The following is a factor chain:
+
+[3, 6, 12, 36]
+
+// 3 is a factor of 6
+// 6 is a factor of 12
+// 12 is a factor of 36
+Create a function that determines whether or not an array is a factor chain.
+
+Examples
+factorChain([1, 2, 4, 8, 16, 32]) ➞ true
+
+factorChain([1, 1, 1, 1, 1, 1]) ➞ true
+
+factorChain([2, 4, 6, 7, 12]) ➞ false
+
+factorChain([10, 1]) ➞ false */
+
+const factorChain = (arr) => {
+    let newArr = [arr[0]]
+    for(let i=1;i<arr.length;i++){
+        if(arr[i] % newArr.slice(-1) === 0) { newArr.push(arr[i])}
+    }
+    if(newArr.length === arr.length) {return true} else {return false}
+}
+
+console.log(factorChain([1, 2, 4, 8, 16, 32]))
+console.log(factorChain([1, 1, 1, 1, 1, 1]))
+console.log(factorChain([2, 4, 6, 7, 12]))
+console.log(factorChain([10, 1]))
+
+
+/* Create a function that takes an array of items, removes all duplicate items and returns a new array in the same sequential order as the old array (minus duplicates).
+
+Examples
+removeDups([1, 0, 1, 0]) ➞ [1, 0]
+
+removeDups(["The", "big", "cat"]) ➞ ["The", "big", "cat"]
+
+removeDups(["John", "Taylor", "John"]) ➞ ["John", "Taylor"]
+Notes
+Tests contain arrays with both strings and numbers.
+Tests are case sensitive.
+Each array item is unique. */
+
+const removeDups = (arr) => {
+    let arrWithoutDuplicates = []
+    for(let i=0;i<arr.length;i++) {
+        if(arrWithoutDuplicates.indexOf(arr[i]) === -1) {
+            arrWithoutDuplicates.push(arr[i])
+        }
+    }
+    return arrWithoutDuplicates
+}
+
+console.log(removeDups([1, 0, 1, 0]))
+console.log(removeDups(["The", "big", "cat"]))
+console.log(removeDups(["John", "Taylor", "John"]))
+
+
+/* Mary wants to run a 25-mile marathon. When she attempts to sign up for the marathon, she notices the sign-up sheet doesn't directly state the marathon's length. Instead, the marathon's length is listed in small, different portions. Help Mary find out how long the marathon actually is.
+
+Return true if the marathon is 25 miles long, otherwise, return false.
+
+Examples
+marathonDistance([1, 2, 3, 4]) ➞ false
+
+marathonDistance([1, 9, 5, 8, 2]) ➞ true
+
+marathonDistance([-6, 15, 4]) ➞ true
+Notes
+Items in the array will always be integers.
+Items in the array may be negative or positive, but since negative distance isn't possible, find a way to convert negative integers into positive integers.
+Return false if the arguments are empty or not provided. */
+
+const marathonDistance = (arr) => {
+    let total =0
+    for(let i=0;i<arr.length;i++) {
+        if(arr[i] < 0) {arr[i] = Math.abs(arr[i])}
+        total+=arr[i]
+    }
+    if(total === 25) return true
+    else return false
+}
+
+console.log(marathonDistance([1, 2, 3, 4]))
+console.log(marathonDistance([1, 9, 5, 8, 2]))
+console.log(marathonDistance([-6, 15, 4]))
+
+
+/* 
+ Given radius r and height h (in cm), calculate the mass of a cylinder when it's filled with water and the cylinder itself doesn't weigh anything. The desired output should be given in kg and rounded to two decimal places.
+
+How to solve:
+
+Calculate the volume of the cylinder.
+Convert cm³ into dm³.
+1dm³ = 1L, 1L is 1Kg.
+Examples
+weight(4, 10) ➞ 0.5
+
+weight(30, 60) ➞ 169.65
+ 
+weight(15, 10) ➞ 7.07 */
+
+const weight = (num1,num2) => {
+    return Math.PI * Math.pow(num1,2) * num2/1000
+}
+
+console.log(weight(4, 10))
+console.log(weight(30, 60))
+console.log(weight(15, 10))
+
+
+/* Write a function that takes an integer i and returns an integer with the integer backwards followed by the original integer.
+
+To illustrate:
+
+123
+We reverse 123 to get 321 and then add 123 to the end, resulting in 321123.
+
+Examples
+reverseAndNot(123) ➞ 321123
+
+reverseAndNot(152) ➞ 251152
+
+reverseAndNot(123456789) ➞ 987654321123456789
+Notes
+i is a non-negative integer. */
+
+const reverseAndNot = (num) => {
+    const toString = num.toString()
+    const reversedString = toString.split('').reverse().join('')
+    return parseInt(toString.concat(reversedString))
+}
+
+console.log(reverseAndNot(123))
+console.log(reverseAndNot(152))
+console.log(reverseAndNot(123456789))
+
+/* In this challenge, you have to establish if a given integer n is a Sastry number. If the number resulting from the concatenation of an integer n with its successor is a perfect square, then n is a Sastry Number.
+
+Given a positive integer n, implement a function that returns true if n is a Sastry number, or false if it's not.
+
+Examples
+isSastry(183) ➞ true
+// Concatenation of n and its successor = 183184
+// 183184 is a perfect square (428 ^ 2)
+
+isSastry(184) ➞ false
+// Concatenation of n and its successor = 184185
+// 184185 is not a perfect square
+
+isSastry(106755) ➞ true
+// Concatenation of n and its successor = 106755106756
+// 106755106756 is a perfect square (326734 ^ 2) */
+
+const isSastry = (num) => {
+    const nextNum = num + 1
+    const numToString = num.toString()
+    const nextNumToString = nextNum.toString()
+    const concatNumbers = parseInt(numToString.concat(nextNumToString))
+    if (Math.sqrt(concatNumbers) % 1 === 0) {return true} else {return false}
+}
+
+console.log(isSastry(183))
+console.log(isSastry(184))
+console.log(isSastry(106755))
+
+/* Create a function that takes an array of numbers arr, a string str and return an array of numbers as per the following rules:
+
+"Asc" returns a sorted array in ascending order.
+"Des" returns a sorted array in descending order.
+"None" returns an array without any modification.
+Examples
+ascDesNone([4, 3, 2, 1], "Asc" ) ➞ [1, 2, 3, 4]
+
+ascDesNone([7, 8, 11, 66], "Des") ➞ [66, 11, 8, 7]
+
+ascDesNone([1, 2, 3, 4], "None") ➞ [1, 2, 3, 4] */
+
+
+const ascDesNone = (arr,str) => {
+    if(str ==="Asc") {return arr.sort((a,b) => a-b)}
+    if(str === "Des") {return arr.sort((a,b) => b-a)}
+    if(str === "None") return arr
+}
+
+console.log(ascDesNone([4, 3, 2, 1], "Asc" ))
+console.log(ascDesNone([7, 8, 11, 66], "Des"))
+console.log(ascDesNone([1, 2, 3, 4], "None"))
+
+
+/* Create a function that takes three arguments a, b, c and returns the sum of the numbers that are evenly divided by c from the range a, b inclusive.
+
+Examples
+evenlyDivisible(1, 10, 20) ➞ 0
+// No number between 1 and 10 can be evenly divided by 20.
+
+evenlyDivisible(1, 10, 2) ➞ 30
+// 2 + 4 + 6 + 8 + 10 = 30
+
+evenlyDivisible(1, 10, 3) ➞ 18
+// 3 + 6 + 9 = 18 */
+
+
+const evenlyDivisible = (a,b,c) => {
+    if (b<c) return 0
+    if(c<b) {
+        let divisibleByC=[]
+        for(let i=a;i<=b;i++) {
+            if(i % c === 0) {divisibleByC.push(i)}
+        }
+        let result = 0;
+        for(let j=0;j<divisibleByC.length;j++) {
+            result += divisibleByC[j]
+        }
+        return result
+    }
+}
+
+console.log(evenlyDivisible(1, 10, 20))
+console.log(evenlyDivisible(1, 10, 2))
+console.log(evenlyDivisible(1, 10, 3))
+
+
+/* Create a function that takes a string, checks if it has the same number of x's and o's and returns either true or false.
+
+Return a boolean value (true or false).
+The string can contain any character.
+When "x" and "o" are not in the string, return true.
+Examples
+XO("ooxx") ➞ true
+
+XO("xooxx") ➞ false
+
+XO("ooxXm") ➞ true
+// Case insensitive.
+
+XO("zpzpzpp") ➞ true
+// Returns true if no x and o.
+
+XO("zzoo") ➞ false */
+
+
+const XO = (str) => {
+    const arrOfletters = str.split('')
+    let arrOfO = []
+    let arrOfX = []
+    for(let i=0;i<arrOfletters.length;i++) {
+        if(arrOfletters[i].toLowerCase() === "o") {arrOfO.push(arrOfletters[i])}
+        if(arrOfletters[i].toLowerCase() === 'x') {arrOfX.push(arrOfletters[i])}
+    }
+    if(arrOfO.length === arrOfX.length) return true
+    else return false 
+}
+
+console.log(XO("ooxx"))
+console.log(XO("xooxx"))
+console.log(XO("ooxXm"))
+console.log(XO("zpzpzpp"))
+console.log(XO("zzoo"))
+
+
+/* Given an array of numbers, write a function that returns an array that...
+
+Has all duplicate elements removed.
+Is sorted from least to greatest value.
+Examples
+uniqueSort([1, 2, 4, 3]) ➞ [1, 2, 3, 4]
+
+uniqueSort([1, 4, 4, 4, 4, 4, 3, 2, 1, 2]) ➞ [1, 2, 3, 4]
+
+uniqueSort([6, 7, 3, 2, 1]) ➞ [1, 2, 3, 6, 7] */
+
+
+const uniqueSort = (arr) => {
+    let uniqueArr = []
+    for(let i=0;i<arr.length;i++) {
+        if(uniqueArr.indexOf(arr[i]) === -1) {uniqueArr.push(arr[i])}
+    }
+    return uniqueArr.sort((a,b) => a-b) 
+}
+
+console.log(uniqueSort([1, 2, 4, 3]))
+console.log(uniqueSort([1, 4, 4, 4, 4, 4, 3, 2, 1, 2]))
+console.log(uniqueSort([6, 7, 3, 2, 1]))
+
+/* To train for an upcoming marathon, Johnny goes on one long-distance run each Saturday. He wants to track how often the number of miles he runs this Saturday exceeds the number of miles run the previous Saturday. This is called a progress day.
+
+Create a function that takes in an array of miles run every Saturday and returns Johnny's total number of progress days.
+
+Examples
+progressDays([3, 4, 1, 2]) ➞ 2
+// There are two progress days, (3->4) and (1->2)
+
+progressDays([10, 11, 12, 9, 10]) ➞ 3
+
+progressDays([6, 5, 4, 3, 2, 9]) ➞ 1
+
+progressDays([9, 9])  ➞ 0 */
+
+
+const progressDays = (arr) => {
+    let prevNum = arr[0]
+    let counter = 0
+    for(let i=1;i<arr.length;i++) {
+        if(arr[i] > prevNum) {
+            prevNum=arr[i]
+            counter++
+        } else {
+            prevNum=arr[i]
+        }
+    }
+    return counter
+}
+
+console.log(progressDays([3, 4, 1, 2]))
+console.log(progressDays([10, 11, 12, 9, 10]))
+console.log(progressDays([6, 5, 4, 3, 2, 9]))
+console.log(progressDays([9, 9]))
+
+
+
+/* Write a function that reverses all the words in a sentence that start with a particular letter.
+
+Examples
+specialReverse("word searches are super fun", "s")
+➞ "word sehcraes are repus fun"
+
+specialReverse("first man to walk on the moon", "m")
+➞ "first nam to walk on the noom"
+
+specialReverse("peter piper picked pickled peppers", "p")
+➞ "retep repip dekcip delkcip sreppep" */
+
+const specialReverse = (str,letter) => {
+    const wordsArr = str.split(' ')
+    for(let i=0;i<wordsArr.length;i++) {
+        if(wordsArr[i].slice(0,1) === letter) {
+            wordsArr[i] = wordsArr[i].split('').reverse().join('')
+        }
+    } 
+    return wordsArr.join(' ')
+}
+
+console.log(specialReverse("word searches are super fun","s"))
+console.log(specialReverse("first man to walk on the moon", "m"))
+console.log(specialReverse("peter piper picked pickled peppers", "p"))
+
+
+
+/* Create a function that returns the mean of all digits.
+
+Examples
+mean(42) ➞ 3
+
+mean(12345) ➞ 3
+
+mean(666) ➞ 6 */
+
+const mean = (num) => {
+    const numToString = num.toString()
+    let result = 0
+    for(let i=0;i<numToString.length;i++) {
+        result += parseInt(numToString[i])
+    }
+    return result / numToString.length
+}
+
+console.log(mean(42))
+console.log(mean(12345))
+console.log(mean(666))
+
+/* 
+Create a function that takes a string as an argument and converts the first character of each word to uppercase. Return the newly formatted string.
+
+Examples
+makeTitle("This is a title") ➞ "This Is A Title"
+
+makeTitle("capitalize every word") ➞ "Capitalize Every Word"
+
+makeTitle("I Like Pizza") ➞ "I Like Pizza"
+
+makeTitle("PIZZA PIZZA PIZZA") ➞ "PIZZA PIZZA PIZZA" */
+
+
+
+
+
+
+/* Create a function that takes an array of names and returns an array where only the first letter of each name is capitalized.
+
+Examples
+capMe(["mavis", "senaida", "letty"]) ➞ ["Mavis", "Senaida", "Letty"]
+
+capMe(["samuel", "MABELLE", "letitia", "meridith"]) ➞ ["Samuel", "Mabelle", "Letitia", "Meridith"]
+
+capMe(["Slyvia", "Kristal", "Sharilyn", "Calista"]) ➞ ["Slyvia", "Kristal", "Sharilyn", "Calista"] */
+
+
+
+/* Create a function that takes three integer arguments (a, b, c) and returns the amount of integers which are of equal value.
+
+Examples
+equal(3, 4, 3) ➞ 2
+
+equal(1, 1, 1) ➞ 3
+
+equal(3, 4, 1) ➞ 0 */
+
+
+
+
+/* ===============================================================
+/* HARD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* ===============================================================  */
