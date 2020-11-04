@@ -1476,7 +1476,21 @@ makeTitle("I Like Pizza") ➞ "I Like Pizza"
 makeTitle("PIZZA PIZZA PIZZA") ➞ "PIZZA PIZZA PIZZA" */
 
 
+const makeTitle = (str) => {
+    let wordsArr = str.split(' ')
+    let capitalizeWordsArr = []
+    for(let i=0;i<wordsArr.length;i++) {
+        let capitalLetter = wordsArr[i].toString()[0].toUpperCase()
+        capitalizeWordsArr.push(capitalLetter.concat(wordsArr[i].slice(1,wordsArr[i].length))) 
+    }
+    return capitalizeWordsArr.toString().split(',').join(' ')
+    
+}
 
+console.log(makeTitle("This is a title"))
+console.log(makeTitle("capitalize every word"))
+console.log(makeTitle("I Like Pizza"))
+console.log(makeTitle("PIZZA PIZZA PIZZA"))  
 
 
 
@@ -1490,6 +1504,18 @@ capMe(["samuel", "MABELLE", "letitia", "meridith"]) ➞ ["Samuel", "Mabelle", "L
 capMe(["Slyvia", "Kristal", "Sharilyn", "Calista"]) ➞ ["Slyvia", "Kristal", "Sharilyn", "Calista"] */
 
 
+const capMe = (arr) => {
+    let arrOfCapitalizedWords = []
+    for(let i=0;i<arr.length;i++) {
+        arrOfCapitalizedWords.push(arr[i][0].toUpperCase().concat(arr[i].slice(1,arr[i].length).toLowerCase()))
+    }
+    return arrOfCapitalizedWords
+}
+
+console.log(capMe(["mavis", "senaida", "letty"]))
+console.log(capMe(["samuel", "MABELLE", "letitia", "meridith"]))
+console.log(capMe(["Slyvia", "Kristal", "Sharilyn", "Calista"]))
+
 
 /* Create a function that takes three integer arguments (a, b, c) and returns the amount of integers which are of equal value.
 
@@ -1500,9 +1526,272 @@ equal(1, 1, 1) ➞ 3
 
 equal(3, 4, 1) ➞ 0 */
 
+const equal = (a,b,c) => {
+    let counter = 0
+    if(a === b ) {counter ++}
+    if( a === c) {counter ++}
+    if(b === c) {counter ++}
+    if(counter === 1) return counter+1
+    return counter
+}
 
-
+console.log(equal(3, 4, 3))
+console.log(equal(1, 1, 1))
+console.log(equal(3, 4, 1))
 
 /* ===============================================================
 /* HARD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* ===============================================================  */
+
+/* Create a function that takes an array of numbers and return "Boom!" if the number 7 appears in the array. Otherwise, return "there is no 7 in the array".
+
+Examples
+sevenBoom([1, 2, 3, 4, 5, 6, 7]) ➞ "Boom!"
+
+sevenBoom([8, 6, 33, 100]) ➞ "there is no 7 in the array"
+
+sevenBoom([2, 55, 60, 97, 86]) ➞ "Boom!" */
+
+const sevenBoom = (arr) => {
+    let returnString = 'no 7 found!'
+    for(let i=0;i<arr.length;i++) {
+        if(arr[i].toString().indexOf('7') !== -1) { returnString = 'Boom!'}
+        }
+    return returnString
+}
+
+console.log(sevenBoom([1, 2, 3, 4, 5, 6, 7]))
+console.log(sevenBoom([8, 6, 33, 100]))
+console.log(sevenBoom([2, 55, 60, 97, 86]))
+
+
+/* A boomerang is a V-shaped sequence that is either upright or upside down. Specifically, a boomerang can be defined as: sub-array of length 3, with the first and last digits being the same and the middle digit being different.
+
+Some boomerang examples:
+
+[3, 7, 3], [1, -1, 1], [5, 6, 5]
+Create a function that returns the total number of boomerangs in an array.
+
+To illustrate:
+
+[3, 7, 3, 2, 1, 5, 1, 2, 2, -2, 2]
+// 3 boomerangs in this sequence:  [3, 7, 3], [1, 5, 1], [2, -2, 2]
+Be aware that boomerangs can overlap, like so:
+
+[1, 7, 1, 7, 1, 7, 1]
+// 5 boomerangs (from left to right): [1, 7, 1], [7, 1, 7], [1, 7, 1], [7, 1, 7], and [1, 7, 1]
+Examples
+countBoomerangs([9, 5, 9, 5, 1, 1, 1]) ➞ 2
+
+countBoomerangs([5, 6, 6, 7, 6, 3, 9]) ➞ 1
+
+countBoomerangs([4, 4, 4, 9, 9, 9, 9]) ➞ 0 */
+
+const countBoomerangs = (arr) => {
+    let counter = 0
+   for(let i=0;i<arr.length;i++) {
+        let chunkOfThree = arr.slice(i,i+3)
+        if(chunkOfThree[0] === chunkOfThree[2] && chunkOfThree.length=== 3 && chunkOfThree[1] !== chunkOfThree[0]) {
+            counter ++
+        }
+    }
+    return counter
+}
+
+console.log(countBoomerangs([3, 7, 3, 2, 1, 5, 1, 2, 2, -2, 2]))
+console.log(countBoomerangs([9, 5, 9, 5, 1, 1, 1]))
+console.log(countBoomerangs([5, 6, 6, 7, 6, 3, 9]))
+console.log(countBoomerangs([4, 4, 4, 9, 9, 9, 9]))
+console.log(countBoomerangs([1, 7, 1, 7, 1, 7, 1]))
+
+
+
+/* An array that represents a Binary Tree is in the following form:
+
+binaryTree = [val, arrLeft, arrRight]
+When arrLeft is the left side of the tree and arrRight is the right side of the tree.
+
+To illustrate:
+
+const arr1 = [3, [ 8, [ 5, null, null], null], [ 7, null, null]]
+
+// arr1 represents the following Binary Tree:
+
+                    3
+                   / \
+                  8   7
+                 /\   /\
+                5  N N  N
+               /\
+               N N
+
+// Where N represents null.
+Create a function that takes an array that represent a Binary Tree and a value and return true if the value is in the tree and, false otherwise.
+
+Examples
+valueInTree(arr1, 5) ➞ true
+
+valueInTree(arr1, 9) ➞ false
+ */
+/* valueInTree(arr1, 51) ➞ false */
+
+const arr11 = [3, [ 8, [ 5, null, null], null], [ 7, null, null]]
+
+const valueInTree = (arr,num) => {
+    let bool = false
+    for(let i=0;i<arr.length;i++) {
+       if(arr[i] instanceof Array) {
+            for(let j=0;j<arr[i].length;j++) {
+                if(parseInt(arr[i][j]) === num) {bool = true}
+                }
+            } 
+        if(arr[i] instanceof String && parseInt(arr[i]) === num) {bool = true}
+    }
+    return bool
+}
+
+console.log(valueInTree(arr11, 5))
+console.log(valueInTree(arr11, 9))
+console.log(valueInTree(arr11, 91))
+console.log(valueInTree(arr11, 8))
+console.log(valueInTree(arr11, 7))
+
+
+/* Create a function that determines whether a number is Oddish or Evenish. A number is Oddish if the sum of all of its digits is odd, and a number is Evenish if the sum of all of its digits is even. If a number is Oddish, return "Oddish". Otherwise, return "Evenish".
+
+For example, oddishOrEvenish(121) should return "Evenish", since 1 + 2 + 1 = 4. oddishOrEvenish(41) should return "Oddish", since 4 + 1 = 5.
+
+Examples
+oddishOrEvenish(43) ➞ "Oddish"
+
+oddishOrEvenish(373) ➞ "Oddish"
+
+oddishOrEvenish(4433) ➞ "Evenish" */
+
+const oddishOrEvenish = (num) => {
+    const numToString = num.toString()
+    const arrOfSingleDigits = numToString.split('').map(digit => parseInt(digit,10))
+    let sumOfDigits = 0
+    for(let i=0;i<arrOfSingleDigits.length;i++) {
+        sumOfDigits+=arrOfSingleDigits[i]
+    }
+    if(sumOfDigits%2 === 0) return "Evenish"
+    else return "Oddish"
+    
+}
+
+console.log(oddishOrEvenish(43))
+console.log(oddishOrEvenish(373))
+console.log(oddishOrEvenish(4433))
+
+
+/* The .length property on an array will return the number of elements in the array. For example, the array below contains 2 elements:
+
+[1, [2, 3]]
+// 2 elements, number 1 and array [2, 3]
+Suppose we instead wanted to know the total number of non-nested items in the nested array. In the above case, [1, [2, 3]] contains 3 non-nested items, 1, 2 and 3.
+
+Write a function that returns the total number of non-nested items in a nested array.
+
+Examples
+getLength([1, [2, 3]]) ➞ 3
+
+getLength([1, [2, [3, 4]]]) ➞ 4
+
+getLength([1, [2, [3, [4, [5, 6]]]]]) ➞ 6
+
+getLength([1, [2], 1, [2], 1]) ➞ 5
+Notes
+An empty array should return 0. */
+
+const getLength = arr => arr.flat(Infinity).length;
+
+console.log(getLength([1, [2, 3]]))
+console.log(getLength([1, [2, [3, 4]]]))
+console.log(getLength([1, [2, [3, [4, [5, 6]]]]]))
+console.log(getLength([1, [2], 1, [2], 1]))
+
+/* Write a function that takes an array of arrays and returns the value of all of the symbols in it, where each symbol adds or takes something from the total score. Symbol values:
+
+# = 5
+O = 3
+X = 1
+! = -1
+!! = -3
+!!! = -5
+An array of arrays containing 2 #s, a O, and a !!! would equal (0 + 5 + 5 + 3 - 5) 8.
+
+If the final score is negative, return 0 (e.g. 3 #s, 3 !!s, 2 !!!s and a X would be (0 + 5 + 5 + 5 - 3 - 3 - 3 - 5 - 5 + 1) -3, so return 0.
+
+Examples
+checkScore([
+  ["#", "!"],
+  ["!!", "X"]
+]) ➞ 2
+
+checkScore([
+  ["!!!", "O", "!"],
+  ["X", "#", "!!!"],
+  ["!!", "X", "O"]
+]) ➞ -1
+
+checkScore([
+  ["#", "O", "#", "!!", "X", "!!", "#", "O", "O", "!!", "#", "X", "#", "O"],
+  ["!!!", "!!!", "!!", "!!", "!", "!", "X", "!", "!!!", "O", "!", "!!!", "X", "#"],
+  ["#", "X", "#", "!!!", "!", "!!", "#", "#", "!!", "X", "!!", "!!!", "X", "O"],
+  ["!!", "X", "!!", "!!", "!!!", "#", "O", "O", "!!!", "#", "O", "O", "#", "!!"],
+  ["O", "X", "#", "!", "!", "X", "!!!", "O", "!!!", "!!", "O", "!", "O", "X"],
+  ["!!", "!!!", "X", "!!!", "!!", "!!", "!!!", "X", "O", "!", "#", "!!", "!!", "!!!"],
+  ["!!", "!!", "#", "O", "!", "!!", "!", "!!!", "#", "O", "#", "!", "#", "!!"],
+  ["X", "X", "O", "X", "!!!", "#", "!!!", "!!!", "X", "X", "X", "!", "#", "!!"],
+  ["O", "!!!", "!", "O", "#", "!", "!", "#", "X", "X", "#", "O", "!!", "!"],
+  ["X", "!", "!!", "#", "#", "X", "!!", "O", "!!", "X", "X", "!!", "#", "X"],
+  ["!", "!!", "!!", "O", "!!", "!!", "#", "#", "!", "!!!", "O", "!", "#", "#"],
+  ["!", "!!!", "!!", "X", "!!", "!!", "#", "!!!", "O", "!!", "!!!", "!", "!", "!"],
+  ["!!!", "!!!", "!!", "O", "!", "!", "!!!", "!!!", "!!", "!!", "X", "!", "#", "#"],
+  ["O", "O", "#", "O", "#", "!", "!!!", "X", "X", "O", "!", "!!!", "X", "O"]
+]) ➞ 12
+Notes
+Strings in the arrays will only be #, O, X, !, !! and !!!. */
+
+const checkScore = (arr) => {
+    let score = 0
+    for (let i=0;i<arr.length;i++) {
+        for(let j=0;j<arr[i].length;j++) {
+            if(arr[i][j] === "#") score += 5
+            if(arr[i][j] === "O") score += 3
+            if(arr[i][j] === "X") score += 1
+            if(arr[i][j] === "!") score += -1
+            if(arr[i][j] === "!!") score += -3
+            if(arr[i][j] === "!!!") score += -5
+
+        }
+                }
+    return score
+}
+
+console.log(checkScore([
+    ["#", "!"],
+    ["!!", "X"]
+  ]))
+console.log(checkScore([
+    ["!!!", "O", "!"],
+    ["X", "#", "!!!"],
+    ["!!", "X", "O"]
+  ]))
+console.log(checkScore([
+    ["#", "O", "#", "!!", "X", "!!", "#", "O", "O", "!!", "#", "X", "#", "O"],
+    ["!!!", "!!!", "!!", "!!", "!", "!", "X", "!", "!!!", "O", "!", "!!!", "X", "#"],
+    ["#", "X", "#", "!!!", "!", "!!", "#", "#", "!!", "X", "!!", "!!!", "X", "O"],
+    ["!!", "X", "!!", "!!", "!!!", "#", "O", "O", "!!!", "#", "O", "O", "#", "!!"],
+    ["O", "X", "#", "!", "!", "X", "!!!", "O", "!!!", "!!", "O", "!", "O", "X"],
+    ["!!", "!!!", "X", "!!!", "!!", "!!", "!!!", "X", "O", "!", "#", "!!", "!!", "!!!"],
+    ["!!", "!!", "#", "O", "!", "!!", "!", "!!!", "#", "O", "#", "!", "#", "!!"],
+    ["X", "X", "O", "X", "!!!", "#", "!!!", "!!!", "X", "X", "X", "!", "#", "!!"],
+    ["O", "!!!", "!", "O", "#", "!", "!", "#", "X", "X", "#", "O", "!!", "!"],
+    ["X", "!", "!!", "#", "#", "X", "!!", "O", "!!", "X", "X", "!!", "#", "X"],
+    ["!", "!!", "!!", "O", "!!", "!!", "#", "#", "!", "!!!", "O", "!", "#", "#"],
+    ["!", "!!!", "!!", "X", "!!", "!!", "#", "!!!", "O", "!!", "!!!", "!", "!", "!"],
+    ["!!!", "!!!", "!!", "O", "!", "!", "!!!", "!!!", "!!", "!!", "X", "!", "#", "#"],
+    ["O", "O", "#", "O", "#", "!", "!!!", "X", "X", "O", "!", "!!!", "X", "O"]
+  ]))
