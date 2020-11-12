@@ -1795,3 +1795,274 @@ console.log(checkScore([
     ["!!!", "!!!", "!!", "O", "!", "!", "!!!", "!!!", "!!", "!!", "X", "!", "#", "#"],
     ["O", "O", "#", "O", "#", "!", "!!!", "X", "X", "O", "!", "!!!", "X", "O"]
   ]))
+
+
+
+
+/*   Write the function that takes three dimensions of a brick: height(a), width(b) and depth(c) and returns true if this brick can fit into a hole with the width(w) and height(h).
+
+Examples
+doesBrickFit(1, 1, 1, 1, 1) ➞ true
+
+doesBrickFit(1, 2, 1, 1, 1) ➞ true
+
+doesBrickFit(1, 2, 2, 1, 1) ➞ false
+Notes
+You can turn the brick with any side towards the hole.
+We assume that the brick fits if its sizes equal the ones of the hole (i.e. brick size should be less than or equal to the size of the hole, not strictly less).
+You can't put a brick in at a non-orthogonal angle. */
+
+const doesBrickFit = (a,b,c,w,h) => {
+    const brickDimensionsArr = [a,b,c]
+    let allParams = []
+    const wholeParam=w*h
+    for(let i=0;i<brickDimensionsArr.length;i++) {
+        if(i<2) {allParams.push(brickDimensionsArr[i]*brickDimensionsArr[i+1])}
+        else {allParams.push(brickDimensionsArr[2]*brickDimensionsArr[0])}
+    }
+    const arrOfParamsThatFit = allParams.filter(i => i <= wholeParam)
+    if(arrOfParamsThatFit.length !== 0) return true
+    else return false
+}
+    
+
+
+console.log(doesBrickFit(1, 1, 1, 1, 1))
+console.log(doesBrickFit(1, 2, 1, 1, 1))
+console.log(doesBrickFit(1, 2, 2, 1, 1))
+
+
+
+
+
+/* 
+Create a function that takes two "sorted" arrays of numbers and returns an array of numbers which are common to both the input arrays.
+
+Examples
+commonElements([-1, 3, 4, 6, 7, 9], [1, 3]) ➞ [3]
+
+commonElements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]) ➞ [1, 3, 4, 7]
+
+commonElements([1, 2, 2, 2, 3, 4, 5], [1, 2, 4, 5]) ➞ [1, 2, 4, 5]
+
+commonElements([1, 2, 3, 4, 5], [10, 12, 13, 15]) ➞ []
+Notes
+Arrays are sorted. */
+
+
+
+const commonElements = (arr1,arr2) => {
+    let commonNumbers = []
+    for(let i=0;i<arr1.length;i++) {
+        for(let j=0;j<arr2.length;j++) {
+            if(arr1[i] === arr2[j]) {
+                if(commonNumbers.indexOf(arr1[i]) === -1) {
+                    commonNumbers.push(arr1[i])
+                }
+            }
+        }
+    }
+    return commonNumbers
+}
+
+console.log(commonElements([-1, 3, 4, 6, 7, 9], [1, 3]))
+console.log(commonElements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]))
+console.log(commonElements([1, 2, 2, 2, 3, 4, 5], [1, 2, 4, 5]))
+console.log(commonElements([1, 2, 3, 4, 5], [10, 12, 13, 15]))
+
+
+
+/* From point A, an object is moving towards point B at constant velocity va (in km/hr). From point B, another object is moving towards point A at constant velocity vb (in km/hr). Knowing this and the distance between point A and B (in km), write a function that returns how much time passes until both objects meet.
+
+Format the output like this:
+
+"2h 23min 34s"
+Examples
+letsMeet(100, 10, 30) ➞ "2h 30min 0s"
+
+letsMeet(280, 70, 80) ➞ "1h 52min 0s"
+
+letsMeet(90, 75, 65) ➞ "0h 38min 34s" */
+
+
+const letsMeet = (distance,va,vb) => {
+    const num = distance/(va+vb)
+    const hour = Math.floor((distance/(va+vb)))
+    const minutes = Math.floor((num - hour)*60)
+    const seconds = Math.floor((minutes - Math.floor(minutes))*60)
+    return `${hour}h ${minutes}min ${seconds}s`
+}
+
+console.log(letsMeet(100, 10, 30))
+console.log(letsMeet(280, 70, 80))
+console.log(letsMeet(90, 75, 65))
+
+
+/* Abigail and Benson are playing Rock, Paper, Scissors.
+
+Each game is represented by an array of length 2, where the first element represents what Abigail played and the second element represents what Benson played.
+
+Given a sequence of games, determine who wins the most number of matches. If they tie, output "Tie".
+
+R stands for Rock
+P stands for Paper
+S stands for Scissors
+Examples
+calculateScore([["R", "P"], ["R", "S"], ["S", "P"]]) ➞ "Abigail"
+
+// Ben wins the first game (Paper beats Rock).
+// Abigail wins the second game (Rock beats Scissors).
+// Abigail wins the third game (Scissors beats Paper). 
+// Abigail wins 2/3.
+
+calculateScore([["R", "R"], ["S", "S"]]) ➞ "Tie"
+
+calculateScore([["S", "R"], ["R", "S"], ["R", "R"]]) ➞ "Tie" */
+
+
+const calculateScore = (arr) => {
+    let AbiScore = 0
+    let BenScore = 0
+    for(var i=0;i<arr.length;i++) {
+        if(arr[i][0] === 'R' && arr[i][1] === 'P') {
+            BenScore++
+        }
+        if(arr[i][0] === 'R' && arr[i][1] === 'S') {
+            AbiScore++
+        }
+        if(arr[i][0] === 'P' && arr[i][1] === 'R') {
+            AbiScore++
+        }
+        if(arr[i][0] === 'P' && arr[i][1] === 'S') {
+            BenScore++
+        }
+        if(arr[i][0] === 'S' && arr[i][1] === 'R') {
+            BenScore++
+        }
+        if(arr[i][0] === 'S' && arr[i][1] === 'P') {
+            AbiScore++
+        }
+    }
+    if(AbiScore > BenScore) {return 'Abigail'}
+    if(AbiScore < BenScore) {return 'Benson'}
+    if(AbiScore === BenScore) {return 'Tie'}
+}
+
+console.log(calculateScore([["R", "R"], ["S", "S"]]))
+console.log(calculateScore([["S", "R"], ["R", "S"], ["R", "R"]]))
+console.log(calculateScore([["R", "P"], ["R", "S"], ["S", "P"]]))
+
+/* Given a string, reverse all the words which have odd length. The even length words are not changed.
+
+Examples
+reverseOdd("Bananas") ➞ "sananaB"
+
+reverseOdd("One two three four") ➞ "enO owt eerht four"
+
+reverseOdd("Make sure uoy only esrever sdrow of ddo length")
+➞ "Make sure you only reverse words of odd length"
+Notes
+There is exactly one space between each word and no punctuation is used. */
+
+const reverseOdd = (str) => {
+    let strToArrOfWords = str.split(' ')
+    let arrOfProcessedString = []
+    for(let i=0;i<strToArrOfWords.length;i++) {
+        if(strToArrOfWords[i].length % 2 !== 0) {
+            arrOfProcessedString.push(strToArrOfWords[i].split('').reverse().join(''))
+        } else {
+            arrOfProcessedString.push(strToArrOfWords[i])
+        } 
+    }
+    return arrOfProcessedString.join(' ')
+}
+
+console.log(reverseOdd("Bananas"))
+console.log(reverseOdd("One two three four"))
+
+
+
+
+/* Remember the game Battleship? Ships are floating in a matrix. You have to fire torpedos at their suspected coordinates, to try and hit them. */
+
+/* Create a function that takes an array of arrays (matrix) and a coordinate as a string. If the coordinate contains only water " . ", return "splash" and if the coordinate contains a ship " * ", return "BOOM".
+
+Examples
+[
+  [".", ".", ".", "*", "*"],
+  [".", "*", ".", ".", "."],
+  [".", "*", ".", ".", "."],
+  [".", "*", ".", ".", "."],
+  [".", ".", "*", "*", "."],
+]
+
+fire(matrix, "A1") ➞ "splash"
+
+fire(matrix, "A4") ➞ "BOOM"
+
+fire(matrix, "D2") ➞ "BOOM"
+Notes
+The provided matrix is always a square.
+The provided matrix will not be larger than 5 * 5 ( A1 * E5). */
+
+const matrix = [
+    [".", ".", ".", "*", "*"],
+    [".", "*", ".", ".", "."],
+    [".", "*", ".", ".", "."],
+    [".", "*", ".", ".", "."],
+    [".", ".", "*", "*", "."],
+  ]
+
+const fire = (arr,str) => {
+    if(str[0] === "A") {
+        for(let i=0;i<arr[0].length;i++) {
+            if(arr[0][i] === parseInt(str[1] - 1) && arr[0][i] === '*') { return 'BOOM'}
+            else { return 'splash'}
+        } 
+    }
+    if(str[0] === 'B') {
+        for(let i=0;i<arr[1].length;i++) {
+            if(arr[1][i] === parseInt(str[1] - 1)  && arr[1][i] === '*') { return 'BOOM'}
+            else { return 'splash'}
+        } 
+    }
+    if(str[0] === 'C') {
+        for(let i=0;i<arr[2].length;i++) {
+            if(arr[2][i] === parseInt(str[1] - 1)  && arr[2][i] === '*') { return 'BOOM'}
+            else { return 'splash'}
+        } 
+    }
+    if(str[0] === 'D') {
+        for(let i=0;i<arr[3].length;i++) {
+            if(arr[3][i] === parseInt(str[1] - 1)  && arr[3][i] === '*') { return 'BOOM'}
+            else { return 'splash'}
+        } 
+    }
+    if(str[0] === 'E') {
+        for(let i=0;i<arr[4].length;i++) {
+            if(arr[4][i] === parseInt(str[1] - 1)  && arr[4][i] === '*') { return 'BOOM'}
+            else { return 'splash'}
+        } 
+    }
+}
+
+console.log(fire(matrix,"A1"))
+console.log(fire(matrix,"A4"))
+console.log(fire(matrix,"D2"))
+
+
+
+
+
+/* Create a function to generate all string character permutations.
+
+Examples
+permutations("AB") ➞ "AB BA"
+
+permutations("CD") ➞ "CD DC"
+
+permutations("ABC") ➞ "ABC ACB BAC BCA CBA CAB"
+
+permutations("BFG") ➞ "BFG BGF FBG FGB GFB GBF"
+Notes
+Do not omit duplicates. */
