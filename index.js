@@ -2014,55 +2014,270 @@ const matrix = [
   ]
 
 const fire = (arr,str) => {
-    if(str[0] === "A") {
+    let result = 'splash'
+    if(str[0] === 'A') {
         for(let i=0;i<arr[0].length;i++) {
-            if(arr[0][i] === parseInt(str[1] - 1) && arr[0][i] === '*') { return 'BOOM'}
-            else { return 'splash'}
-        } 
+            if(i + 1 === parseInt(str[1]) && arr[0][i] === '*') { result = 'BOOM'}
+        }
     }
     if(str[0] === 'B') {
         for(let i=0;i<arr[1].length;i++) {
-            if(arr[1][i] === parseInt(str[1] - 1)  && arr[1][i] === '*') { return 'BOOM'}
-            else { return 'splash'}
-        } 
+            if(i + 1 === parseInt(str[1]) && arr[1][i] === '*') { result = 'BOOM'}
+        }
     }
     if(str[0] === 'C') {
         for(let i=0;i<arr[2].length;i++) {
-            if(arr[2][i] === parseInt(str[1] - 1)  && arr[2][i] === '*') { return 'BOOM'}
-            else { return 'splash'}
-        } 
+            if(i + 1 === parseInt(str[1]) && arr[2][i] === '*') { result = 'BOOM'}
+        }
     }
     if(str[0] === 'D') {
         for(let i=0;i<arr[3].length;i++) {
-            if(arr[3][i] === parseInt(str[1] - 1)  && arr[3][i] === '*') { return 'BOOM'}
-            else { return 'splash'}
-        } 
+            if(i + 1 === parseInt(str[1]) && arr[3][i] === '*') { result = 'BOOM'}
+        }
     }
     if(str[0] === 'E') {
         for(let i=0;i<arr[4].length;i++) {
-            if(arr[4][i] === parseInt(str[1] - 1)  && arr[4][i] === '*') { return 'BOOM'}
-            else { return 'splash'}
-        } 
+            if(i + 1 === parseInt(str[1]) && arr[4][i] === '*') { result = 'BOOM'}
+        }
     }
+    return result
 }
 
 console.log(fire(matrix,"A1"))
-console.log(fire(matrix,"A4"))
+console.log(fire(matrix,"A4")) 
 console.log(fire(matrix,"D2"))
 
 
+/* Write a function that inserts a white space between every instance of a lower character followed immediately by an upper character. */
+
+function test() {
+    const string = "HelloStefanHowAreYou"
+    let arr =[]
+    for(let i=0;i<string.length;i++) {
+    if(string[i] === string[i].toLocaleUpperCase() && i>0){
+        const stringAndWhite = ((` `).concat(string[i]))
+        arr.push(stringAndWhite)
+    } else {
+        arr.push(string[i])
+    }
+    }
+    console.log(arr.join(''))
+}
+
+test()
 
 
-
-/* Create a function to generate all string character permutations.
+/* Create a function that takes a string and returns the first character that repeats. If there is no repeat of a character, return "-1".
 
 Examples
-permutations("AB") ➞ "AB BA"
+firstRepeat("legolas") ➞ "l"
 
-permutations("CD") ➞ "CD DC"
+firstRepeat("Gandalf") ➞ "a"
 
-permutations("ABC") ➞ "ABC ACB BAC BCA CBA CAB"
+firstRepeat("Balrog") ➞ "-1"
 
-permutations("BFG") ➞ "BFG BGF FBG FGB GFB GBF"
+firstRepeat("Isildur") ➞ "-1"
+// Case sensitive "I" not equal to "i"
 Notes
-Do not omit duplicates. */
+Tests are case sensitive. */
+
+const firstRepeat = (str) => {
+    let repeatedChar 
+    let arrOfUniqueChars = []
+    const strToArr = str.split('')
+    for(let i=0;i<strToArr.length;i++) {
+        if(arrOfUniqueChars.indexOf(strToArr[i]) !== -1) {
+            repeatedChar = strToArr[i]
+        } else {
+            arrOfUniqueChars.push(strToArr[i])
+        }
+    }
+    if(!repeatedChar) { return -1 } else { return repeatedChar}
+    
+}
+
+console.log(firstRepeat("legolas"))
+console.log(firstRepeat("Gandalf"))
+console.log(firstRepeat("Balrog"))
+console.log(firstRepeat("Isildur"))
+
+
+
+
+/* Create a function that takes an array of objects (groceries) which calculates the total price and returns it as a number. A grocery object has a product, a quantity and a price, for example:
+
+{
+  "product": "Milk",
+  "quantity": 1,
+  "price": 1.50
+}
+Examples
+// 1 bottle of milk:
+getTotalPrice([
+  { product: "Milk", quantity: 1, price: 1.50 }
+]) ➞ 1.5
+
+// 1 bottle of milk & 1 box of cereals:
+getTotalPrice([
+  { product: "Milk", quantity: 1, price: 1.50 },
+  { product: "Cereals", quantity: 1, price: 2.50 }
+]) ➞ 4
+
+// 3 bottles of milk:
+getTotalPrice([
+  { product: "Milk", quantity: 3, price: 1.50 }
+]) ➞ 4.5
+
+// Several groceries:
+getTotalPrice([
+  { product: "Milk", quantity: 1, price: 1.50 },
+  { product: "Eggs", quantity: 12, price: 0.10 },
+  { product: "Bread", quantity: 2, price: 1.60 },
+  { product: "Cheese", quantity: 1, price: 4.50 }
+]) ➞ 10.4
+
+// Some cheap candy:
+getTotalPrice([
+  { product: "Chocolate", quantity: 1, price: 0.10 },
+  { product: "Lollipop", quantity: 1, price: 0.20 }
+]) ➞ 0.3 */
+
+const getTotalPrice = (arr) => {
+    let totalPrice=0;
+    for(let i=0;i<arr.length;i++) {
+        totalPrice+=(arr[i].quantity*arr[i].price)
+    }
+    return totalPrice
+}
+
+console.log(getTotalPrice([
+    { product: "Milk", quantity: 1, price: 1.50 },
+    { product: "Eggs", quantity: 12, price: 0.10 },
+    { product: "Bread", quantity: 2, price: 1.60 },
+    { product: "Cheese", quantity: 1, price: 4.50 }
+  ]))
+
+  console.log(getTotalPrice([
+    { product: "Milk", quantity: 1, price: 1.50 },
+    { product: "Cereals", quantity: 1, price: 2.50 }
+  ]))
+  console.log(getTotalPrice([
+    { product: "Milk", quantity: 1, price: 1.50 }
+  ]))
+  console.log(getTotalPrice([
+    { product: "Milk", quantity: 3, price: 1.50 }
+  ]))
+
+
+class Human {
+    constructor(name,age) {
+        this.name = name
+        this.age = age
+    }
+
+    get nameAndAge() {
+        return `Your name is ${this.name} and you are ${this.age} years old`
+    }
+}
+
+class Stefan extends Human {
+    constructor(name,age,job) {
+        super(name,age)
+        this.job=job
+    }
+
+    get fullBio() {
+        return `Your name is ${this.name} and you are ${this.age} years old and you are a ${this.job}`
+    }
+}
+
+const me = new Stefan('Stefan',31,'programmer')
+console.log(me.nameAndAge)
+console.log(me.fullBio)
+
+
+const url = "https://some-url.com"
+
+const getDataFromSomewhere = async () => {
+    try {
+        const response = await fetch(url,{
+            method:'POST'
+        })
+        if(response.ok) {
+            const jsonResponse = await response.json()
+            return jsonResponse
+        }
+        throw new Error('Something went wrong ... !')
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+
+
+/* Sherlock and Squares
+Watson likes to challenge Sherlock's math ability. He will provide a starting and ending value describing a range of integers. Sherlock must determine the number of square integers within that range, inclusive of the endpoints (note that a square integer is an integer which is the square of an integer, e.g. 1, 4, 9, 16, 25, 36, 49).
+
+For example, the range is a=24 and b=49, inclusive. There are three square integers in the range: 25, 36 and 49.
+
+Complete the squares function that returns an integer representing the number of square integers in the inclusive range from a to b.
+
+Examples
+squares(3, 9) ➞ 2
+
+squares(17, 24) ➞ 0
+
+squares(1, 1000000000) ➞ 31622 */
+
+const squares = (a,b) => {
+    let result = 0
+    for(let i=a;i<=b;i++) {
+        if(Number.isInteger(Math.sqrt(i))) {result++}
+    }
+    return result
+}
+
+console.log(squares(1,1000000))
+console.log(squares(3, 9))
+console.log(squares(17, 24))
+
+
+
+
+/* Create a function that takes numbers as arguments, adds them together, and returns the product of digits until the answer is only 1 digit long.
+
+Examples
+sumDigProd(16, 28) ➞ 6
+// 16 + 28 = 44
+// 4 * 4 =  16
+// 1 * 6 = 6
+
+sumDigProd(0) ➞ 0
+
+sumDigProd(1, 2, 3, 4, 5, 6) ➞ 2 */
+
+const recursive = num => {
+    let result = 1
+    const arrOfIntegers = num.toString().split('')
+    console.log(arrOfIntegers)
+    if(arrOfIntegers.length === 1) {return arrOfIntegers[0]}
+    else {
+        for(let i=0;i<arrOfIntegers.length;i++) {
+            result*=arrOfIntegers[i]
+        }
+        result = recursive(result)
+        return result
+     }
+}
+
+console.log(recursive(12345689))
+
+const sumDigProd = (...args) => {
+    let additionOfAllArgs = 0
+    for(let i=0;i<args.length;i++) {
+        additionOfAllArgs+=args[i]
+    }
+    return recursive(additionOfAllArgs)
+}
+
+console.log(sumDigProd(1,2,3,4,5,6))
